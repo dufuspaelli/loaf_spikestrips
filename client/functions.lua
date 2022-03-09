@@ -4,6 +4,7 @@ wheels = {
     ["wheel_rr"] = 5,
     ["wheel_lr"] = 4,
 }
+local QBCore = exports['qb-core']:GetCoreObject()
 
 function DeployStinger()
     local stinger = CreateObject(LoadModel("p_ld_stinger_s").model, GetOffsetFromEntityInWorldCoords(PlayerPedId(), -0.2, 2.0, 0.0), true, true, 0)
@@ -11,7 +12,7 @@ function DeployStinger()
     SetEntityHeading(stinger, GetEntityHeading(PlayerPedId()))
     FreezeEntityPosition(stinger, true)
     PlaceObjectOnGroundProperly(stinger)
-    SetEntityVisible(stinger, false)
+   -- SetEntityVisible(stinger, false)
 
     -- init scene
     local scene = NetworkCreateSynchronisedScene(GetEntityCoords(PlayerPedId()), GetEntityRotation(PlayerPedId(), 2), 2, false, false, 1065353216, 0, 1.0)
@@ -40,13 +41,20 @@ function DeployStinger()
         Wait(0)
     end
     PlayEntityAnim(stinger, "p_stinger_s_idle_deployed", LoadDict("p_ld_stinger_s"), 1000.0, false, true, 0, 0.99, 0)
-
+   -- Wait(5000)
     return stinger
 end
 
 RegisterNetEvent("loaf_spikestrips:placeSpikestrip")
 AddEventHandler("loaf_spikestrips:placeSpikestrip", function()
-    DeployStinger()
+    if IsPedInAnyVehicle(PlayerPedId(),true) then 
+
+        QBCore.Functions.Notify("Can't use in a vehicle", 'error')
+    else     
+        --TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items['spikestrip'], "remove")
+        TriggerServerEvent("QBCore:Server:RemoveItem", 'spikestrip', 1)
+        DeployStinger()
+    end
 end)
 
 function RemoveStinger()
