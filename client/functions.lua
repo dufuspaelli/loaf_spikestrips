@@ -15,7 +15,7 @@ function DeployStinger()
    -- SetEntityVisible(stinger, false)
 
     -- init scene
-    local scene = NetworkCreateSynchronisedScene(GetEntityCoords(PlayerPedId()), GetEntityRotation(PlayerPedId(), 2), 2, false, false, 1065353216, 0, 1.0)
+--[[     local scene = NetworkCreateSynchronisedScene(GetEntityCoords(PlayerPedId()), GetEntityRotation(PlayerPedId(), 2), 2, false, false, 1065353216, 0, 1.0)
     NetworkAddPedToSynchronisedScene(PlayerPedId(), scene, LoadDict("amb@medic@standing@kneel@enter"), "enter", 8.0, -8.0, 3341, 16, 1148846080, 0)
     NetworkStartSynchronisedScene(scene)
     -- wait for the scene to start
@@ -29,7 +29,7 @@ function DeployStinger()
         Wait(0)
     end
     -- stop the scene early
-    NetworkStopSynchronisedScene(scene)
+    NetworkStopSynchronisedScene(scene) ]]
 
     -- play deploy animation for stinger
     PlayEntityAnim(stinger, "P_Stinger_S_Deploy", LoadDict("p_ld_stinger_s"), 1000.0, false, true, 0, 0.0, 0)
@@ -52,8 +52,22 @@ AddEventHandler("loaf_spikestrips:placeSpikestrip", function()
         QBCore.Functions.Notify("Can't use in a vehicle", 'error')
     else     
         --TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items['spikestrip'], "remove")
-        TriggerServerEvent("QBCore:Server:RemoveItem", 'spikestrip', 1)
-        DeployStinger()
+        QBCore.Functions.Progressbar("deliverbag", "Placing spike strip..", 1500, false, true, {
+            disableMovement = true,
+            disableCarMovement = true,
+            disableMouse = false,
+            disableCombat = true,
+        }, {
+
+            animDict = "amb@medic@standing@kneel@enter",
+            anim = "enter",
+            flags = 120,
+            task = nil,
+
+        }, {}, {}, function() 
+            TriggerServerEvent("QBCore:Server:RemoveItem", 'spikestrip', 1)
+            DeployStinger()
+        end)
     end
 end)
 
