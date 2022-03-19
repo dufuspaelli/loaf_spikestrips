@@ -43,7 +43,11 @@ if Config.Framework == "esx" or Config.Framework == "qb" then
         elseif Config.Framework == "qb" then
             QBCore.Functions.CreateUseableItem(Config.FrameworkFeatures.Item, function(src)
                 local xPlayer = QBCore.Functions.GetPlayer(src)
+<<<<<<< HEAD
                 --xPlayer.Functions.RemoveItem(Config.FrameworkFeatures.Item, 1)
+=======
+                xPlayer.Functions.RemoveItem(Config.FrameworkFeatures.Item, 1)
+>>>>>>> b7a75f6fa42130167df1cef2cf2cf506b2ef4c2e
                 TriggerClientEvent("loaf_spikestrips:placeSpikestrip", src)
             end)
         end

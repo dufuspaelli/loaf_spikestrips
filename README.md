@@ -62,4 +62,9 @@ Visit [this page](https://github.com/loaf-scripts/loaf_spikestrips/wiki/qb-polic
 * Modify the `police` table in the server.lua file to change who is able to place spike strips.
 
 ## Credits
+<<<<<<< HEAD
 * `@Jay ;)#6969` - helped with adding support for qb-core
+=======
+* `@Jay ;)#6969` - helped with adding support for qb-core
+* @warxander - [warmenu](https://github.com/warxander/warmenu)
+>>>>>>> b7a75f6fa42130167df1cef2cf2cf506b2ef4c2e
