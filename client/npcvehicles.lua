@@ -22,7 +22,7 @@ if Config.NPCVehicles then
 
     CreateThread(function()
         while true do
-            collectgarbage()
+            --collectgarbage()
             stingers = GetSpikestrips(GetEntityCoords(PlayerPedId()))
             Wait(1500)
         end
@@ -48,7 +48,7 @@ if Config.NPCVehicles then
             end
 
             -- higher wait = tyres won't burst, lower wait = worse performance
-            Wait(5)
+            Wait(10)
         end
     end)
 end
